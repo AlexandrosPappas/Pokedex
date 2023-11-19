@@ -1,4 +1,10 @@
 const pokedex = document.getElementById("pokedex");
+const searchInput = document.querySelector("[data-search]");
+
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value;
+  console.log(value);
+});
 
 const fetchPokemon = () => {
   const promises = [];
@@ -15,6 +21,7 @@ const fetchPokemon = () => {
       nimage: data.sprites.front_default,
       type: data.types.map((type) => type.type.name).join(", "),
     }));
+    hideLoading();
     displayPokemon(pokemon);
   });
 };
@@ -32,5 +39,14 @@ const displayPokemon = (pokemon) => {
     .join("");
   pokedex.innerHTML = pokemonHTMLString;
 };
+
+function showLoading() {
+  document.getElementById("loadingGif").style.display = "block";
+}
+
+// Function to hide the loading GIF
+function hideLoading() {
+  document.getElementById("loadingGif").style.display = "none";
+}
 
 fetchPokemon();
